@@ -1,23 +1,13 @@
 import jester
-
-const ht* ="""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div id="ROOT" />
-    aa
-    <script src="./front/main.js" type="text/javascript"></script>
-</body>
-</html>
-"""
+import json
+import ./front/main
 routes:
   get "/":
-    resp(ht)
+    resp(render())
+  post "/confirm":
+    var 
+        a = request.formData()
+        b = a["unchi"]
+    resp $b 
     
 runForever()
