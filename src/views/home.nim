@@ -1,3 +1,7 @@
+#? stdtmpl(subChar = '$', metaChar = '#')
+#
+#proc renderMain*(body:string):string=
+#  result = ""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +11,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="ROOT" />
-    aa
-    <script src="./main.js" type="text/javascript"></script>
+   <ul>
+   <li><a href="/about">About</a></li>
+   <li><a href="/createPost">Post</a></li>
+   </ul>
+   ${body}
 </body>
 </html>
-"""
+# end proc

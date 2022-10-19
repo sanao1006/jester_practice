@@ -8,11 +8,9 @@ srcDir        = "src"
 bin = @["jestert"]
 backend = "c"
 # Dependencies
-
+var a = "ddd"
 requires "nim >= 1.6.8"
 task dev, "run":
-  exec("nim c -r -d:release src/jestert.nim ")
-task front, "front":
-  exec("nim js -d:release --outdir:./public src/front/main.nim ")
+  exec("nim c -r -d:release src/app.nim ")
 task db, "front":
-  exec("nim c -d:release db/crtdb.nim")
+  exec("nim c -r -d:release src/crtdb.nim")
