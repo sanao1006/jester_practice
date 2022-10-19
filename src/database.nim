@@ -3,13 +3,13 @@ import db_sqlite
 type 
     DataBase* = ref object
       db : DbConn
-    BlogPosts* = object
+    BlogPosts* = ref object
       ptitle* : string
       pcontent* : string
 
 proc newDB*(filename="blog.db"):DataBase=
     new result
-    result.db = open(filename,"","","")
+    result.db = open(filename,"unchi","a","test")
 
 proc closeDB*(database:DataBase)=
     database.db.close()
