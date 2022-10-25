@@ -20,5 +20,7 @@ routes:
     )
     db.createPost(allposts)
     redirect("/createPost")
+  post "/deletePost/@title":
+    db.deletePost()
 
 runForever()

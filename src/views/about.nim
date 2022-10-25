@@ -1,5 +1,5 @@
-#? stdtmpl(subChar = '$', metaChar = '#')
-# proc createAbout*():string=
-# result = ""
-About page
-#end proc
+import karax / [karaxdsl, vdom]
+proc createAbout*():string=
+  let vnode = buildHtml(tdiv):
+    h1:text "about"
+  return $vnode

@@ -3,13 +3,13 @@ import db_sqlite
 type 
     DataBase* = ref object
       db : DbConn
-    BlogPosts* = ref object
+    BlogPosts* = object
       ptitle* : string
       pcontent* : string
 
 proc newDB*(filename="blog.db"):DataBase=
     new result
-    result.db = open(filename,"unchi","a","test")
+    result.db = open(filename,"","","")
 
 proc closeDB*(database:DataBase)=
     database.db.close()
@@ -24,6 +24,9 @@ proc setupDB*(database:DataBase)=
 
 proc createPost*(database:DataBase,blogPost:BlogPosts)=
     database.db.exec(sql"INSERT INTO BlogPosts VALUES(?,?);",blogPost.ptitle,blogPost.pcontent)
+
+proc deletePost*(database:Database,blogpost:BlogPosts)=
+    database.db.exec(sql"DELETE FROM BlogPosts where ptitle = ?",blogpost.ptitle)
 
 proc getPosts*(database:DataBase,tpost:seq[string]):seq[BlogPosts]=
     let ps = database.db.getAllRows(sql"SELECT * FROM BlogPosts",tpost)
