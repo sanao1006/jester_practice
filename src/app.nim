@@ -19,8 +19,7 @@ routes:
       pcontent: @"content"
     )
     db.createPost(allposts)
-    redirect("/createPost")
-  post "/deletePost/@title":
-    db.deletePost()
+    redirect("/")
+
 
 runForever()
