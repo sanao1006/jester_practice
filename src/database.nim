@@ -32,6 +32,12 @@ proc createPost*(database:DataBase,blogPost:BlogPosts)=
 proc deletePost*(database:Database,pid:string)=
     database.db.exec(sql"DELETE FROM BlogPosts where id = ?",$pid)
 
+proc updatePost*(database:DataBase,content:string,pid:string)=
+    database.db.exec(sql"UPDATE BlogPosts SET pcontents = ? WHERE id = ?",content,pid)
+
+proc getPostsForUpdate*(database:DataBase,pid:string):seq[Row]=
+  result=dataBase.db.getAllRows(sql"SELECT * FROM BlogPosts where id = ?",pid)
+  
 proc getPosts*(database:DataBase,tpost:seq[string]):seq[BlogPosts]=
     let ps = database.db.getAllRows(sql"SELECT id,ptitle,pcontents FROM BlogPosts",tpost)
     for item in ps:result.add(BlogPosts(pid:parseInt(item[0]),ptitle:item[1],pcontent:item[2]))

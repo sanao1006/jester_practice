@@ -9,5 +9,6 @@ proc showPosts*(theposts:seq[BlogPosts]):string=
         p:text $i.pcontent
         form(`method`="post",action=("/delete/" & $i.pid)):
           input(type="submit",value="削除")
+          a(href="/update/" & $i.pid):text "編集"
 
   return $vnode

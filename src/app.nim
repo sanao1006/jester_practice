@@ -1,5 +1,5 @@
 import jester
-import ./views/createPost,./views/home,./views/posts,./views/about
+import ./views/createPost,./views/home,./views/posts,./views/about,./views/update
 import ./database
 
 let db = newDB()
@@ -22,6 +22,13 @@ routes:
     redirect("/")
   post "/delete/@id":
     db.deletePost(@"id")
+    redirect("/about")
+  get "/update/@id":
+    let a = db.getPostsForUpdate(@"id")
+    resp(updatePage(a))
+  post "/update/@id":
+    let tex = request.params["content"]
+    db.updatePost(tex,@"id")
     redirect("/about")
 
 runForever()
