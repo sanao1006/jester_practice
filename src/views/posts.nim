@@ -7,4 +7,7 @@ proc showPosts*(theposts:seq[BlogPosts]):string=
       tdiv:
         h2:text $i.ptitle
         p:text $i.pcontent
+        form(`method`="post",action=("/delete/" & $i.pid)):
+          input(type="submit",value="削除")
+
   return $vnode

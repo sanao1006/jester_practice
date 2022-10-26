@@ -6,13 +6,13 @@ let db = newDB()
 
 routes:
   get "/":
+    resp(renderMain())
+  get "/about":
     var data:BlogPosts
     let alltheposts = db.getPosts(@[data.ptitle,data.pcontent])
-    resp(renderMain(showPosts(alltheposts)))
-  get "/about":
-    resp renderMain(createAbout())
+    resp (createAbout(showPosts(alltheposts)))
   get "/createPost":
-    resp(renderMain(createPost()))
+    resp(createPost())
   post "/createPost":
     let allposts = BlogPosts(
       ptitle: @"title" ,
@@ -20,6 +20,8 @@ routes:
     )
     db.createPost(allposts)
     redirect("/")
-
+  post "/delete/@id":
+    db.deletePost(@"id")
+    redirect("/about")
 
 runForever()

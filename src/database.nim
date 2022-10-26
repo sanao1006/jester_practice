@@ -1,5 +1,6 @@
-import db_sqlite
-
+import 
+    db_sqlite,
+    std/strutils
 type 
     DataBase* = ref object
       db : DbConn
@@ -28,9 +29,9 @@ proc setupDB*(database:DataBase)=
 proc createPost*(database:DataBase,blogPost:BlogPosts)=
     database.db.exec(sql"INSERT INTO BlogPosts(ptitle,pcontents) VALUES(?,?);",blogPost.ptitle,blogPost.pcontent)
 
-proc deletePost*(database:Database,blogpost:BlogPosts)=
-    database.db.exec(sql"DELETE FROM BlogPosts where pid = ?",blogpost.pid)
+proc deletePost*(database:Database,pid:string)=
+    database.db.exec(sql"DELETE FROM BlogPosts where id = ?",$pid)
 
 proc getPosts*(database:DataBase,tpost:seq[string]):seq[BlogPosts]=
-    let ps = database.db.getAllRows(sql"SELECT ptitle,pcontents FROM BlogPosts",tpost)
-    for item in ps:result.add(BlogPosts(ptitle:item[0],pcontent:item[1]))
+    let ps = database.db.getAllRows(sql"SELECT id,ptitle,pcontents FROM BlogPosts",tpost)
+    for item in ps:result.add(BlogPosts(pid:parseInt(item[0]),ptitle:item[1],pcontent:item[2]))
